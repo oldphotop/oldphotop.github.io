@@ -1,43 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+    <!DOCTYPE html>
+    <html lang="ru">
+      <head>
+        <meta charset="utf-8" />
+        <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#000000" />
+        <meta
+          name="description"
+          content="Сайт работает в демонстрационном режиме. Услуги не оказываются"
+        />
+        <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+        <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+        <title>Константин Прокопенко - фотограф из Минска</title>
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+        <!-- Подключение Font Awesome для иконок -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlalDLrphzB92/z5JkXQxMv/gA8Fz1n5x5s5T4D/x3b2z5W5z5z5v5w5w5w5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+        <!-- Tailwind CSS CDN -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Tailwind CSS configuration for Inter font and custom animations -->
+        <script>
+          tailwind.config = {
+              theme: {
+                  extend: {
+                      fontFamily: {
+                          inter: ['Inter', 'sans-serif'],
+                      },
+                      keyframes: {
+                          fadeIn: {
+                              '0%': { opacity: '0' },
+                              '100%': { opacity: '1' },
+                          },
+                          slideIn: {
+                              '0%': { transform: 'translate(-50%, -200%)' },
+                              '100%': { transform: 'translate(-50%, -50%)' },
+                          },
+                          fadeInDown: {
+                              '0%': { opacity: '0', transform: 'translateY(-20px)' },
+                              '100%': { opacity: '1', transform: 'translateY(0)' },
+                          },
+                          fadeInUp: {
+                              '0%': { opacity: '0', transform: 'translateY(20px)' },
+                              '100%': { opacity: '1', transform: 'translateY(0)' },
+                          },
+                          pulseLight: {
+                              '0%': { transform: 'scale(1)', boxShadow: '0 6px 15px rgba(0, 0, 0, 0.3)' },
+                              '50%': { transform: 'scale(1.05)', boxShadow: '0 10px 20px rgba(0, 0, 0, 0.4)' },
+                              '100%': { transform: 'scale(1)', boxShadow: '0 6px 15px rgba(0, 0, 0, 0.3)' },
+                          },
+                          pulsePopup: {
+                              '0%': { transform: 'scale(1)' },
+                              '50%': { transform: 'scale(1.02)' },
+                              '100%': { transform: 'scale(1)' },
+                          },
+                          slideInUp: {
+                              '0%': { opacity: '0', transform: 'translateY(50px)' },
+                              '100%': { opacity: '1', transform: 'translateY(0)' },
+                          },
+                      },
+                      animation: {
+                          fadeIn: 'fadeIn 0.5s ease-out forwards',
+                          slideIn: 'slideIn 0.5s ease-in-out forwards',
+                          fadeInDown: 'fadeInDown 1s ease-out forwards',
+                          fadeInUp: 'fadeInUp 1s ease-out 0.5s forwards',
+                          pulseLight: 'pulseLight 1.5s infinite alternate',
+                          pulsePopup: 'pulsePopup 1.5s infinite alternate',
+                          slideInUp: 'slideInUp 1s ease-out forwards',
+                      },
+                  },
+              },
+          }
+        </script>
+        <!-- Дополнительные глобальные стили для анимаций кнопок и градиентов всплывающих окон -->
+        <style>
+          @keyframes gradientShift {
+              0% { background-position: 0% 50%; }
+              50% { background-position: 100% 50%; }
+              100% { background-position: 0% 50%; }
+          }
+          #email-button {
+              animation: gradientShift 5s infinite alternate, pulseLight 1.5s infinite alternate;
+          }
+          /* Custom style to hide scrollbar while keeping scroll functionality */
+          .hide-scrollbar::-webkit-scrollbar {
+              display: none; /* For Chrome, Safari, and Opera */
+          }
+          .hide-scrollbar {
+              -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+              scrollbar-width: none;  /* For Firefox */
+          }
+        </style>
+      </head>
+      <body>
+        <noscript>Для работы этого приложения требуется JavaScript.</noscript>
+        <div id="root"></div>
+        <!--
+          Этот HTML-файл является шаблоном.
+          Если вы открываете его напрямую в браузере, вы увидите пустую страницу.
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
-</html>
+          Вы можете добавить веб-шрифты, метатеги или аналитику в <head>.
+          Отображаемый тег <div id="root"> будет заменен вашим React-компонентом.
+        -->
+      </body>
+    </html>
+    
