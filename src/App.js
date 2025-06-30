@@ -98,9 +98,18 @@ const Header = () => {
 // --- Hero Section Component ---
 const HeroSection = ({ mediaType, mediaSrc }) => {
     return (
-        <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden text-center text-white font-inter">
-            {/* Darkening overlay */}
-            <div className="absolute inset-0 bg-black bg-opacity-40 z-10 animate-fadeIn"></div>
+        <section
+            id="home"
+            className="relative h-screen flex items-center justify-center overflow-hidden text-center text-white font-inter"
+        >
+            {/* Responsive darkening overlay */}
+            <div
+                className="
+                    absolute inset-0 bg-black z-10 animate-fadeIn
+                    bg-opacity-40 sm:bg-opacity-50 md:bg-opacity-60 lg:bg-opacity-70
+                "
+            ></div>
+
             {/* Media background (video or image) */}
             {mediaType === 'video' ? (
                 <video
@@ -109,7 +118,7 @@ const HeroSection = ({ mediaType, mediaSrc }) => {
                     loop
                     muted
                     playsInline
-                    preload="auto" // Preload video for smoother experience
+                    preload="auto"
                 >
                     <source src={mediaSrc} type="video/mp4" />
                     Ваш браузер не поддерживает тег видео.
@@ -119,14 +128,18 @@ const HeroSection = ({ mediaType, mediaSrc }) => {
                     src={mediaSrc}
                     alt="Hero background"
                     className="absolute inset-0 w-full h-full object-cover z-0"
-                    loading="eager" // Eager load for hero image
+                    loading="eager"
                 />
             )}
 
             {/* Hero section content */}
             <div className="relative z-20 px-4">
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-light leading-tight mb-4 animate-fadeInDown">Константин Прокопенко</h1>
-                <p className="text-xl md:text-2xl lg:text-3xl text-gray-200 mb-8 animate-fadeInUp delay-200">Профессиональный фотограф в Минске</p>
+                <h1 className="text-5xl md:text-7xl lg:text-8xl font-light leading-tight mb-4 animate-fadeInDown">
+                    Константин Прокопенко
+                </h1>
+                <p className="text-xl md:text-2xl lg:text-3xl text-gray-200 mb-8 animate-fadeInUp delay-200">
+                    Профессиональный фотограф в Минске
+                </p>
             </div>
         </section>
     );
