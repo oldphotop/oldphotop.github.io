@@ -100,7 +100,7 @@ const HeroSection = ({ mediaType, mediaSrc }) => {
     return (
         <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden text-center text-white font-inter">
             {/* Darkening overlay */}
-            <div className="absolute inset-0 bg-black bg-opacity-70 z-10 animate-fadeIn"></div>
+            <div className="absolute inset-0 bg-black bg-opacity-40 z-10 animate-fadeIn"></div>
             {/* Media background (video or image) */}
             {mediaType === 'video' ? (
                 <video
