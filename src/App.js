@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-// --- Утилиты для работы с куками (встроены непосредственно в App.js) ---
 const setCookie = (name, value, days) => {
     let expires = "";
     if (days) {
@@ -13,13 +12,13 @@ const setCookie = (name, value, days) => {
 
 const getCookie = (name) => {
     const nameEQ = name + "=";
-    const ca = document.cookie.split('; '); // Разделяем все куки на массив
+    const ca = document.cookie.split('; ');
     for (let i = 0; i < ca.length; i++) {
         let c = ca[i];
-        while (c.charAt(0) === ' ') c = c.substring(1, c.length); // Удаляем пробелы в начале
-        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length); // Если найдено, возвращаем значение
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length); 
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length); 
     }
-    return null; // Если куки не найдено
+    return null; 
 };
 
 
@@ -264,9 +263,9 @@ const PortfolioItem = ({ imageSrc, altText, title, description, link }) => {
                 alt={altText}
                 loading="lazy" // Lazy load images for performance
             />
-            <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-4">
+            {/*<div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-4">
                 <h2 className="text-white text-2xl font-bold text-shadow-lg text-center">{title}</h2>
-            </div>
+            </div>*/}
             {/* Description below the image, always visible */}
             <div className="p-4 bg-white text-gray-800 text-center">
                 <h3 className="text-xl font-semibold mb-2">{title}</h3> {/* Repeat title if it's the main heading for the card */}
@@ -511,16 +510,16 @@ const App = () => {
             return (
                 <>
                     <Header />
-                    <HeroSection
+                    {/*<HeroSection
                         mediaType="video" // Set to 'video' or 'image'
-                        mediaSrc="https://placehold.co/1280x720/000/FFF?text=video.mp4" // Video URL or image URL
-                    />
-                    {/* Example for image background:
+                        mediaSrc="assets/images/prokopenko_hero.jpg" // Video URL or image URL
+                    />*/}
+                    {/* Example for image background:*/}
                     <HeroSection
                         mediaType="image"
-                        mediaSrc="https://placehold.co/1920x1080/4dc47d/FFFFFF?text=Image+Background"
+                        mediaSrc="assets/images/prokopenko_hero.jpg"
                     />
-                    */}
+
                     <AboutSection />
                     <ServicesSection />
                     <PriceSection />
