@@ -4,6 +4,7 @@ import './index.css'; // Базовые стили (в основном для �
 import App from './App';
 import reportWebVitals from './reportWebVitals'; // Для отслеживания производительности
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
