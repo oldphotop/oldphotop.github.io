@@ -452,7 +452,7 @@ const Popup = ({ onClose }) => {
                 </a>
                 <button
                     onClick={onClose}
-                    className="block w-full bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-300"
+                    className="block w-auto mx-auto bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-300"
                 >
                     Закрыть
                 </button>
