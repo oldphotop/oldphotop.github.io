@@ -436,7 +436,7 @@ const Popup = ({ onClose }) => {
             ></div>
             {/* Popup window */}
             <div
-                className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 p-8 rounded-lg shadow-2xl text-center z-[1000] animate-slideIn text-white w-11/12 max-w-sm mx-4 md:w-full md:max-w-md border border-gray-700" // Adjusted width for better mobile readability
+                className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 p-8 rounded-lg shadow-2xl text-center z-[1000] animate-slideIn text-white w-11/12 max-w-sm mx-auto md:w-full md:max-w-md border border-gray-700" // Adjusted width for better mobile readability
             >
                 <p className="text-lg md:text-xl mb-6 leading-relaxed"> {/* Adjusted font size for readability */}
                     Константин сейчас находится в СИЗО и нуждается в нашей поддержке. Напишите ему письмо, чтобы он знал, что не один. Каждое слово имеет значение!
