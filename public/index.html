@@ -1,106 +1,100 @@
-    <!DOCTYPE html>
-    <html lang="ru">
-      <head>
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
 
-        <script type="text/javascript">
-            (function(c,l,a,r,i,t,y){
-                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "sbcmb15pqn");
-        </script>
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "sbcmb15pqn");
+    </script>
 
-        <meta charset="utf-8" />
-        <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#000000" />
-        <meta
-          name="description"
-          content="Константин Прокопенко"
-        />
-        <!--<link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-        <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />-->
-        <title>Константин Прокопенко - фотограф из Минска</title>
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlalDLrphzB92/z5JkXQxMv/gA8Fz1n5x5s5T4D/x3b2z5W5z5z5v5w5w5w5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-        <script src="/tailwind-3.4.16.css"></script>
-        <!-- Tailwind CSS configuration for Inter font and custom animations -->
-        <script>
-          tailwind.config = {
-              theme: {
-                  extend: {
-                      fontFamily: {
-                          inter: ['Inter', 'sans-serif'],
+    <meta charset="utf-8"/>
+    <link rel="icon" href="%PUBLIC_URL%/favicon.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="theme-color" content="#000000"/>
+    <meta name="description" content="Константин Прокопенко"/>
+    <!--<link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png"/>
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json"/>-->
+    <title>Константин Прокопенко - фотограф из Минска</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0V4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="/tailwind-3.4.16.css"></script>
+    <script>
+      tailwind.config = {
+          darkMode: 'class', 
+          theme: {
+              extend: {
+                  fontFamily: {
+                      inter: ['Inter', 'sans-serif'],
+                  },
+                  keyframes: {
+                      fadeIn: {
+                          '0%': { opacity: '0' },
+                          '100%': { opacity: '1' },
                       },
-                      keyframes: {
-                          fadeIn: {
-                              '0%': { opacity: '0' },
-                              '100%': { opacity: '1' },
-                          },
-                          slideIn: {
-                              '0%': { transform: 'translate(-50%, -200%)' },
-                              '100%': { transform: 'translate(-50%, -50%)' },
-                          },
-                          fadeInDown: {
-                              '0%': { opacity: '0', transform: 'translateY(-20px)' },
-                              '100%': { opacity: '1', transform: 'translateY(0)' },
-                          },
-                          fadeInUp: {
-                              '0%': { opacity: '0', transform: 'translateY(20px)' },
-                              '100%': { opacity: '1', transform: 'translateY(0)' },
-                          },
-                          pulseLight: {
-                              '0%': { transform: 'scale(1)', boxShadow: '0 6px 15px rgba(0, 0, 0, 0.3)' },
-                              '50%': { transform: 'scale(1.05)', boxShadow: '0 10px 20px rgba(0, 0, 0, 0.4)' },
-                              '100%': { transform: 'scale(1)', boxShadow: '0 6px 15px rgba(0, 0, 0, 0.3)' },
-                          },
-                          pulsePopup: {
-                              '0%': { transform: 'scale(1)' },
-                              '50%': { transform: 'scale(1.02)' },
-                              '100%': { transform: 'scale(1)' },
-                          },
-                          slideInUp: {
-                              '0%': { opacity: '0', transform: 'translateY(50px)' },
-                              '100%': { opacity: '1', transform: 'translateY(0)' },
-                          },
+                      slideIn: {
+                          '0%': { transform: 'translate(-50%, -200%)' },
+                          '100%': { transform: 'translate(-50%, -50%)' },
                       },
-                      animation: {
-                          fadeIn: 'fadeIn 0.5s ease-out forwards',
-                          slideIn: 'slideIn 0.5s ease-in-out forwards',
-                          fadeInDown: 'fadeInDown 1s ease-out forwards',
-                          fadeInUp: 'fadeInUp 1s ease-out 0.5s forwards',
-                          pulseLight: 'pulseLight 1.5s infinite alternate',
-                          pulsePopup: 'pulsePopup 1.5s infinite alternate',
-                          slideInUp: 'slideInUp 1s ease-out forwards',
+                      fadeInDown: {
+                          '0%': { opacity: '0', transform: 'translateY(-20px)' },
+                          '100%': { opacity: '1', transform: 'translateY(0)' },
+                      },
+                      fadeInUp: {
+                          '0%': { opacity: '0', transform: 'translateY(20px)' },
+                          '100%': { opacity: '1', transform: 'translateY(0)' },
+                      },
+                      pulseLight: {
+                          '0%': { transform: 'scale(1)', boxShadow: '0 6px 15px rgba(0, 0, 0, 0.3)' },
+                          '50%': { transform: 'scale(1.05)', boxShadow: '0 10px 20px rgba(0, 0, 0, 0.4)' },
+                          '100%': { transform: 'scale(1)', boxShadow: '0 6px 15px rgba(0, 0, 0, 0.3)' },
+                      },
+                      pulsePopup: {
+                          '0%': { transform: 'scale(1)' },
+                          '50%': { transform: 'scale(1.02)' },
+                          '100%': { transform: 'scale(1)' },
+                      },
+                      slideInUp: {
+                          '0%': { opacity: '0', transform: 'translateY(50px)' },
+                          '100%': { opacity: '1', transform: 'translateY(0)' },
                       },
                   },
+                  animation: {
+                      fadeIn: 'fadeIn 0.5s ease-out forwards',
+                      slideIn: 'slideIn 0.5s ease-in-out forwards',
+                      fadeInDown: 'fadeInDown 1s ease-out forwards',
+                      fadeInUp: 'fadeInUp 1s ease-out 0.5s forwards',
+                      pulseLight: 'pulseLight 1.5s infinite alternate',
+                      pulsePopup: 'pulsePopup 1.5s infinite alternate',
+                      slideInUp: 'slideInUp 1s ease-out forwards',
+                  },
               },
-          }
-        </script>
-        <!-- Дополнительные глобальные стили для анимаций кнопок и градиентов всплывающих окон -->
-        <style>
-          @keyframes gradientShift {
-              0% { background-position: 0% 50%; }
-              50% { background-position: 100% 50%; }
-              100% { background-position: 0% 50%; }
-          }
-          #email-button {
-              animation: gradientShift 5s infinite alternate, pulseLight 1.5s infinite alternate;
-          }
-          /* Custom style to hide scrollbar while keeping scroll functionality */
-          .hide-scrollbar::-webkit-scrollbar {
-              display: none; /* For Chrome, Safari, and Opera */
-          }
-          .hide-scrollbar {
-              -ms-overflow-style: none;  /* For Internet Explorer and Edge */
-              scrollbar-width: none;  /* For Firefox */
-          }
-        </style>
-      </head>
-      <body>
-        <noscript>Для работы этого приложения требуется включить JavaScript в настройках браузера.</noscript>
-        <div id="root"></div>
-      </body>
-    </html>
+          },
+      }
+    </script>
+    <style>
+      @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+      }
+      #email-button {
+          animation: gradientShift 5s infinite alternate, pulseLight 1.5s infinite alternate;
+      }
+      /* Custom style to hide scrollbar while keeping scroll functionality */
+      .hide-scrollbar::-webkit-scrollbar {
+          display: none; /* For Chrome, Safari, and Opera */
+      }
+      .hide-scrollbar {
+          -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+          scrollbar-width: none;  /* For Firefox */
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>Для работы этого приложения требуется включить JavaScript в настройках браузера.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
     

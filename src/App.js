@@ -15,15 +15,52 @@ const getCookie = (name) => {
     const ca = document.cookie.split('; ');
     for (let i = 0; i < ca.length; i++) {
         let c = ca[i];
-        while (c.charAt(0) === ' ') c = c.substring(1, c.length); 
-        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length); 
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
     }
-    return null; 
+    return null;
+};
+
+// --- Theme Toggle Switch Component ---
+const ThemeToggle = ({ isDarkMode, toggleDarkMode }) => {
+    return (
+        <button
+            onClick={toggleDarkMode}
+            className="relative inline-flex items-center h-8 w-14 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            style={{ backgroundColor: isDarkMode ? '#4A5568' : '#cbd5e0' }} // Tailwind gray-700 / gray-300
+            aria-label="Toggle dark mode"
+        >
+            <span
+                className={`inline-block w-6 h-6 transform bg-white rounded-full transition-transform duration-300 ease-in-out shadow-md
+                    ${isDarkMode ? 'translate-x-6' : 'translate-x-1'}`}
+            >
+                {/* Moon icon for dark mode */}
+                {isDarkMode ? (
+                    <svg className="w-5 h-5 text-yellow-400 mx-auto mt-[2px]" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                ) : (
+                    // Simpler and cleaner Sun icon for light mode (DO NOT CHANGE)
+                    <svg className="w-5 h-5 text-yellow-600 mx-auto mt-[2px]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                )}
+            </span>
+        </button>
+    );
 };
 
 
 // --- Header Component ---
-const Header = () => {
+const Header = ({ isDarkMode, toggleDarkMode }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
 
@@ -60,11 +97,16 @@ const Header = () => {
     }, [isScrolled]);
 
     return (
-        <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-gray-900 py-4 shadow-xl' : 'bg-transparent py-5'}`}>
-            <div className="container mx-auto px-4 flex justify-end items-center"> {/* justify-end for moving all elements to the right */}
+        <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-gray-900 dark:bg-gray-950 py-4 shadow-xl' : 'bg-transparent py-5'}`}>
+            <div className="container mx-auto px-4 flex justify-end items-center">
+                {/* Theme Toggle for desktop (remains in header for desktop) */}
+                <div className="hidden md:block mr-4">
+                    <ThemeToggle isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+                </div>
+
                 {/* Mobile menu toggle button (burger icon) */}
                 <button
-                    className="md:hidden text-white focus:outline-none p-2 rounded-md hover:bg-gray-700 transition-colors z-[51] relative" // Changed z-index to z-[51]
+                    className="md:hidden text-white focus:outline-none p-2 rounded-md hover:bg-gray-700 dark:hover:bg-gray-800 transition-colors z-[51] relative"
                     onClick={toggleMenu}
                     aria-label="Toggle navigation"
                 >
@@ -79,9 +121,13 @@ const Header = () => {
                 )}
 
                 {/* Menu links - conditional rendering for mobile (side slide-in) */}
-                <div className={`fixed top-0 right-0 h-full w-64 bg-gray-900 shadow-xl z-50 transform transition-transform duration-300 ease-in-out md:static md:w-auto md:h-auto md:bg-transparent md:shadow-none md:transform-none md:block
+                <div className={`fixed top-0 right-0 h-full w-64 bg-gray-900 dark:bg-gray-950 shadow-xl z-50 transform transition-transform duration-300 ease-in-out md:static md:w-auto md:h-auto md:bg-transparent md:shadow-none md:transform-none md:block
                     ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-                    <ul className="flex flex-col md:flex-row items-center justify-center h-full space-y-8 md:space-y-0 md:space-x-8 p-4 md:p-0">
+                    {/* Theme Toggle for mobile, positioned at bottom-right of the menu */}
+                    <div className="absolute bottom-4 right-4 md:hidden"> {/* Moved here */}
+                        <ThemeToggle isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+                    </div>
+                    <ul className="flex flex-col md:flex-row items-center justify-center h-full space-y-8 md:space-y-0 md:space-x-8 p-4 pt-0 md:p-0">
                         <li><a href="#home" onClick={(e) => smoothScroll(e, 'home')} className="text-white hover:text-green-400 text-lg uppercase font-medium relative group pb-1">Главная <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-400 transition-all duration-300 group-hover:w-full"></span></a></li>
                         <li><a href="#about" onClick={(e) => smoothScroll(e, 'about')} className="text-white hover:text-green-400 text-lg uppercase font-medium relative group pb-1">Обо мне <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-400 transition-all duration-300 group-hover:w-full"></span></a></li>
                         <li><a href="#services" onClick={(e) => smoothScroll(e, 'services')} className="text-white hover:text-green-400 text-lg uppercase font-medium relative group pb-1">Услуги <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-400 transition-all duration-300 group-hover:w-full"></span></a></li>
@@ -128,7 +174,7 @@ const HeroSection = ({ mediaType, mediaSrc }) => {
                     src={mediaSrc}
                     alt="Hero background"
                     className="absolute inset-0 w-full h-full object-cover z-0"
-                    loading="eager"
+                    loading="eager" // Lazy load images for performance
                 />
             )}
 
@@ -148,11 +194,11 @@ const HeroSection = ({ mediaType, mediaSrc }) => {
 // --- About Section Component ---
 const AboutSection = () => {
     return (
-        <section id="about" className="py-24 bg-gradient-to-br from-white to-gray-100 text-center font-inter">
+        <section id="about" className="py-24 bg-gradient-to-br from-white to-gray-100 dark:from-gray-900 dark:to-gray-950 text-center font-inter transition-colors duration-500">
             <div className="container mx-auto px-4 max-w-4xl">
-                <div className="bg-white p-8 md:p-12 rounded-xl shadow-2xl transition-all duration-500 hover:shadow-3xl transform hover:-translate-y-1">
-                    <h3 className="text-sm tracking-widest uppercase text-gray-500 mb-6 font-semibold">Профессиональный фотограф Константин Прокопенко</h3>
-                    <h1 className="text-3xl md:text-4xl font-light leading-relaxed text-gray-800 text-left">
+                <div className="bg-white dark:bg-gray-800 p-8 md:p-12 rounded-xl shadow-2xl transition-all duration-500 hover:shadow-3xl transform hover:-translate-y-1 dark:shadow-none dark:border dark:border-gray-700">
+                    <h3 className="text-sm tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-6 font-semibold">Профессиональный фотограф Константин Прокопенко</h3>
+                    <h1 className="text-3xl md:text-4xl font-light leading-relaxed text-gray-800 dark:text-white text-left">
                         <span className="block mb-2">• Провожу индивидуальные и групповые съёмки.</span>
                         <span className="block mb-2">• Дипломированный специалист в области фотографии.</span>
                         <span className="block mb-2">• Работаю в разных стилях: от портретной фотографии до коммерческой съемки.</span>
@@ -168,7 +214,7 @@ const AboutSection = () => {
 // --- Service Card Component ---
 const ServiceCard = ({ imageSrc, altText, title }) => {
     return (
-        <div className="relative overflow-hidden rounded-xl shadow-xl group cursor-pointer transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2">
+        <div className="relative overflow-hidden rounded-xl shadow-xl group cursor-pointer transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 dark:shadow-none dark:border dark:border-gray-700">
             <img
                 src={imageSrc}
                 className="w-full h-80 object-cover transform transition-transform duration-500 group-hover:scale-110"
@@ -192,9 +238,9 @@ const ServicesSection = () => {
     ];
 
     return (
-        <section id="services" className="py-24 bg-white text-center font-inter">
+        <section id="services" className="py-24 bg-white dark:bg-gray-900 text-center font-inter transition-colors duration-500">
             <div className="container mx-auto px-4">
-                <h1 className="text-4xl md:text-5xl font-light mb-12 text-gray-800 animate-slideInUp">Услуги</h1>
+                <h1 className="text-4xl md:text-5xl font-light mb-12 text-gray-800 dark:text-white animate-slideInUp">Услуги</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {services.map(service => (
                         <ServiceCard
@@ -224,10 +270,10 @@ const PriceCard = ({ title, description, price, contactId }) => {
     }, []);
 
     return (
-        <div className="border-2 border-gray-200 rounded-xl p-8 m-4 flex flex-col items-center text-center shadow-xl bg-white transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">{title}</h2>
-            <p className="text-gray-600 mb-7 flex-grow text-lg">{description}</p>
-            <h1 className="text-5xl font-extrabold text-green-600 mb-10">{price}</h1>
+        <div className="border-2 border-gray-200 dark:border-gray-700 rounded-xl p-8 m-4 flex flex-col items-center text-center shadow-xl bg-white dark:bg-gray-800 transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 dark:shadow-none">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{title}</h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-7 flex-grow text-lg">{description}</p>
+            <h1 className="text-5xl font-extrabold text-green-600 dark:text-green-400 mb-10">{price}</h1>
             <ul className="section-btn">
                 <a href={`#${contactId}`} onClick={(e) => smoothScroll(e, contactId)} className="inline-block px-10 py-4 bg-blue-600 rounded-full text-white text-xl font-semibold shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 active:scale-95">
                     <span data-hover="Заказать съёмку">Заказать съёмку</span>
@@ -247,9 +293,9 @@ const PriceSection = () => {
     ];
 
     return (
-        <section id="price" className="py-24 bg-gray-50 text-center font-inter">
+        <section id="price" className="py-24 bg-gray-50 dark:bg-gray-950 text-center font-inter transition-colors duration-500">
             <div className="container mx-auto px-4">
-                <h1 className="text-4xl md:text-5xl font-light mb-12 text-gray-800 animate-slideInUp">Стоимость</h1>
+                <h1 className="text-4xl md:text-5xl font-light mb-12 text-gray-800 dark:text-white animate-slideInUp">Стоимость</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {prices.map(item => (
                         <PriceCard
@@ -269,20 +315,17 @@ const PriceSection = () => {
 // --- Portfolio Item Component ---
 const PortfolioItem = ({ imageSrc, altText, title, description, link }) => {
     return (
-        <a href={link} target="_blank" rel="noopener noreferrer" className="block relative overflow-hidden rounded-xl shadow-xl group cursor-pointer transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 snap-center">
+        <a href={link} target="_blank" rel="noopener noreferrer" className="block relative overflow-hidden rounded-xl shadow-xl group cursor-pointer transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 snap-center dark:shadow-none dark:border dark:border-gray-700">
             <img
                 src={imageSrc}
                 className="w-full h-80 object-cover transform transition-transform duration-500 group-hover:scale-110"
                 alt={altText}
                 loading="lazy" // Lazy load images for performance
             />
-            {/*<div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-4">
-                <h2 className="text-white text-2xl font-bold text-shadow-lg text-center">{title}</h2>
-            </div>*/}
             {/* Description below the image, always visible */}
-            <div className="p-4 bg-white text-gray-800 text-center">
+            <div className="p-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-white text-center">
                 <h3 className="text-xl font-semibold mb-2">{title}</h3> {/* Repeat title if it's the main heading for the card */}
-                <p className="text-base text-gray-700 leading-relaxed">{description}</p> {/* Changed text-sm to text-base and added leading-relaxed */}
+                <p className="text-base text-gray-700 dark:text-gray-300 leading-relaxed">{description}</p> {/* Changed text-sm to text-base and added leading-relaxed */}
             </div>
         </a>
     );
@@ -335,14 +378,15 @@ const PortfolioSection = () => {
 
 
     return (
-        <section id="portfolio" className="py-24 bg-white text-center font-inter">
+        <section id="portfolio" className="py-24 bg-white dark:bg-gray-900 text-center font-inter transition-colors duration-500">
             <div className="container mx-auto px-4">
-                <h1 className="text-4xl md:text-5xl font-light mb-12 text-gray-800 animate-slideInUp">Портфолио</h1>
+                <h1 className="text-4xl md:text-5xl font-light mb-12 text-gray-800 dark:text-white animate-slideInUp">Портфолио</h1>
                 {/* Horizontal scrolling for mobile, grid for larger screens */}
                 <div ref={scrollContainerRef} className="flex overflow-x-auto snap-x snap-mandatory pb-4 gap-8 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8 hide-scrollbar">
                     {portfolioItems.map((item, index) => (
                         <div key={item.id} className="flex-shrink-0 w-[85%] sm:w-3/4 md:w-auto snap-center">
                             <PortfolioItem
+                                key={item.id} // Added key prop for list rendering
                                 imageSrc={item.image}
                                 altText={item.alt}
                                 title={item.title}
@@ -357,7 +401,7 @@ const PortfolioSection = () => {
                     {portfolioItems.map((_, index) => (
                         <button
                             key={index}
-                            className={`w-3 h-3 rounded-full ${index === currentSlide ? 'bg-green-500' : 'bg-gray-400'} transition-colors duration-300`}
+                            className={`w-3 h-3 rounded-full ${index === currentSlide ? 'bg-green-500' : 'bg-gray-400 dark:bg-gray-600'} transition-colors duration-300`}
                             onClick={() => scrollToSlide(index)}
                             aria-label={`Go to slide ${index + 1}`}
                         ></button>
@@ -371,10 +415,10 @@ const PortfolioSection = () => {
 // --- Contact Section Component ---
 const ContactSection = () => {
     return (
-        <section id="contact" className="py-24 bg-gray-50 text-center font-inter">
+        <section id="contact" className="py-24 bg-gray-50 dark:bg-gray-950 text-center font-inter transition-colors duration-500">
             <div className="container mx-auto px-4">
-                <h1 className="text-4xl md:text-5xl font-light mb-12 text-gray-800 animate-slideInUp">Контакты</h1>
-                <p className="text-lg text-gray-700 max-w-2xl mx-auto mb-8">
+                <h1 className="text-4xl md:text-5xl font-light mb-12 text-gray-800 dark:text-white animate-slideInUp">Контакты</h1>
+                <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-8">
                     Способы связи:
                 </p>
                 <a
@@ -393,7 +437,7 @@ const ContactSection = () => {
 // --- Footer Component ---
 const Footer = () => {
     return (
-        <footer className="py-16 bg-gray-900 text-white text-center font-inter">
+        <footer className="py-16 bg-gray-900 dark:bg-gray-950 text-white text-center font-inter transition-colors duration-500">
             <div className="container mx-auto px-4">
                 <div className="flex flex-col md:flex-row justify-around items-center mb-10">
                     <div className="mb-8 md:mb-0">
@@ -417,7 +461,7 @@ const Footer = () => {
                         </ul>
                     </div>
                 </div>
-                <div className="mt-12 border-t border-gray-700 pt-8">
+                <div className="mt-12 border-t border-gray-700 dark:border-gray-800 pt-8">
                     <p className="text-gray-500 text-sm">&copy; 2024-2025 Константин Прокопенко</p>
                 </div>
             </div>
@@ -436,7 +480,7 @@ const Popup = ({ onClose }) => {
             ></div>
             {/* Popup window */}
             <div
-                className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 p-8 rounded-lg shadow-2xl text-center z-[1000] animate-slideIn text-white w-11/12 max-w-sm mx-auto md:w-full md:max-w-md border border-gray-700" // Adjusted width for better mobile readability
+                className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 dark:bg-gray-900 p-8 rounded-lg shadow-2xl text-center z-[1000] animate-slideIn text-white w-11/12 max-w-sm mx-auto md:w-full md:max-w-md border border-gray-700 dark:border-gray-800" // Adjusted width for better mobile readability
             >
                 <p className="text-lg md:text-xl mb-6 leading-relaxed"> {/* Adjusted font size for readability */}
                     Константин сейчас находится в СИЗО и нуждается в нашей поддержке. Напишите ему письмо, чтобы он знал, что не один. Каждое слово имеет значение!
@@ -464,14 +508,18 @@ const Popup = ({ onClose }) => {
 // --- 404 Not Found Page Component ---
 const NotFoundPage = () => {
     return (
-        <section className="flex-grow flex items-center justify-center bg-gray-100 text-center py-24 min-h-[calc(100vh-160px)]"> {/* Adjusted min-height */}
-            <div className="bg-white p-8 md:p-12 rounded-xl shadow-2xl max-w-2xl mx-auto">
-                <h1 className="text-6xl md:text-8xl font-bold text-gray-800 mb-4">404</h1>
-                <p className="text-xl md:text-2xl text-gray-600 mb-8">
+        <section className="flex-grow flex items-center justify-center bg-gray-100 dark:bg-gray-950 text-center py-24 min-h-[calc(100vh-160px)] transition-colors duration-500">
+            <div className="bg-white dark:bg-gray-800 p-8 md:p-12 rounded-xl shadow-2xl max-w-2xl mx-auto dark:shadow-none dark:border dark:border-gray-700">
+                <h1 className="text-6xl md:text-8xl font-bold text-gray-800 dark:text-white mb-4 flex justify-center items-center">
+                    <span>4</span>
+                    <i className="fas fa-dot-circle animate-horror-flicker mx-2 text-6xl md:text-8xl text-gray-800 dark:text-white"></i>
+                    <span>4</span>
+                </h1>
+                <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8">
                     Извините, страница не найдена.
                 </p>
                 <a
-                    href="#home"
+                    href="#home" // Link back to the home section within the React app
                     className="inline-block px-8 py-3 bg-blue-600 text-white font-bold rounded-full text-lg hover:bg-blue-700 transition-colors duration-300"
                 >
                     Вернуться на главную
@@ -481,11 +529,39 @@ const NotFoundPage = () => {
     );
 };
 
+// Define validHashes outside the App component to make it accessible globally
+const validHashes = ['', '#home', '#about', '#services', '#price', '#portfolio', '#contact'];
+
 // --- Main App Component ---
 const App = () => {
     const [showPopup, setShowPopup] = useState(false);
     const [currentHash, setCurrentHash] = useState(window.location.hash);
-    const validHashes = ['', '#home', '#about', '#services', '#price', '#portfolio', '#contact'];
+    const [isDarkMode, setIsDarkMode] = useState(() => {
+        // 1. Check localStorage first for explicit user preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            return savedTheme === 'dark';
+        }
+        // 2. If no explicit preference, check system preference
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        return prefersDark;
+    });
+
+    // Effect to apply dark mode class to HTML element and save preference
+    useEffect(() => {
+        if (isDarkMode) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+    }, [isDarkMode]);
+
+    // Toggle dark mode function
+    const toggleDarkMode = () => {
+        setIsDarkMode(prevMode => !prevMode);
+    };
 
     // Initialize popup visibility on load
     useEffect(() => {
@@ -509,11 +585,11 @@ const App = () => {
     };
 
     const renderContent = () => {
-        // If hash is not valid, show 404 page
+        // If hash is not valid, show 404 page within the React app
         if (!validHashes.includes(currentHash)) {
             return (
                 <div className="flex flex-col min-h-screen">
-                    <Header />
+                    <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
                     <NotFoundPage />
                     <Footer />
                 </div>
@@ -522,11 +598,7 @@ const App = () => {
             // Otherwise, render the main site content
             return (
                 <>
-                    <Header />
-                    {/*<HeroSection
-                        mediaType="video" // Set to 'video' or 'image'
-                        mediaSrc="assets/images/prokopenko_hero.jpg" // Video URL or image URL
-                    />*/}
+                    <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
                     {/* Example for image background:*/}
                     <HeroSection
                         mediaType="image"
@@ -545,7 +617,7 @@ const App = () => {
     };
 
     return (
-        <div className="font-inter antialiased">
+        <div className="font-inter antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-500">
             {renderContent()}
 
             {/* Floating Email button - only show on main pages, not on 404 */}
@@ -568,3 +640,4 @@ const App = () => {
 };
 
 export default App;
+
